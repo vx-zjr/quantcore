@@ -1,0 +1,103 @@
+# 受控词表：所有枚举值的唯一来源。校验器与 UI 都从这里读取。
+# 扩充枚举（如新增 domain / market）只需在此添加条目，无需改代码。
+# 删除或重命名条目前，先全局搜索确认没有节点在使用。
+
+# 节点类型。kind 列表本身由代码固定（src/content/types.ts），这里只配置展示。
+# slot = 1..8，对应文档化的分类色板（src/index.css 中 --color-k1..k8），不要写 hex。
+kinds:
+  knowledge: { label: 知识, dir: knowledge, slot: 1, progress: true, desc: 需要理解的概念、原理与市场规则 }
+  skill:     { label: 技能, dir: skills,    slot: 2, desc: 需要刻意练习的能力，带当前/目标等级 }
+  industry:  { label: 行业, dir: industry,  slot: 3, desc: 行业格局、机构、策略原型、监管与职业 }
+  source:    { label: 信息源, dir: sources, slot: 4, progress: true, desc: 数据、书籍、论文、社区、工具与平台 }
+  mindset:   { label: 思维, dir: mindset,   slot: 5, progress: true, desc: 原则、心智模型、认知偏差与检查清单 }
+  roadmap:   { label: 路线图, dir: roadmap, slot: 6, desc: 分阶段目标、交付物与退出标准 }
+  journal:   { label: 日志, dir: journal,   slot: 7, desc: 决策记录、复盘与笔记（按日期） }
+  inbox:     { label: 收件箱, dir: inbox,   slot: 8, desc: 未整理的想法/链接，待 AI 归档 }
+
+# 主题领域（跨 kind）。节点的 domains[0] 视为主领域。
+domains:
+  math-stats:       { label: 数学统计 }
+  programming:      { label: 编程工程 }
+  data:             { label: 数据 }
+  market-structure: { label: 市场与微观结构 }
+  asset-pricing:    { label: 资产定价与因子 }
+  strategy:         { label: 策略 }
+  risk:             { label: 风险与组合 }
+  backtest:         { label: 回测与研究方法 }
+  execution:        { label: 交易执行 }
+  ml:               { label: 机器学习 }
+  psychology:       { label: 心理与纪律 }
+  regulation:       { label: 监管合规 }
+  industry:         { label: 行业生态 }
+  macro:            { label: 宏观 }
+
+statuses:
+  todo:  { label: 未开始 }
+  doing: { label: 进行中 }
+  done:  { label: 已完成 }
+
+# 各 kind 的子类（category 字段）。未列出的 kind 不需要 category。
+categories:
+  industry:
+    landscape:  { label: 全景格局 }
+    player:     { label: 机构玩家 }
+    strategy:   { label: 策略原型, desc: 需填写 horizon/capacity/barrier/retailFit，会出现在策略地图 }
+    regulation: { label: 监管合规 }
+    career:     { label: 职业路径 }
+  mindset:
+    principle: { label: 原则 }
+    model:     { label: 心智模型 }
+    bias:      { label: 偏差陷阱 }
+    checklist: { label: 检查清单 }
+  journal:
+    decision: { label: 决策 }
+    review:   { label: 复盘 }
+    note:     { label: 笔记 }
+
+formats:
+  data:      { label: 数据 }
+  book:      { label: 书籍 }
+  paper:     { label: 论文/研报 }
+  course:    { label: 课程 }
+  community: { label: 社区 }
+  blog:      { label: 博客/专栏 }
+  podcast:   { label: 播客 }
+  tool:      { label: 开源工具 }
+  platform:  { label: 平台/终端 }
+  news:      { label: 资讯 }
+
+costs:
+  free:     { label: 免费 }
+  freemium: { label: 免费+付费 }
+  paid:     { label: 付费 }
+
+markets:
+  cn-a:       { label: A股 }
+  cn-futures: { label: 国内期货 }
+  cn-options: { label: 国内期权 }
+  cn-bond:    { label: 国内债券/可转债 }
+  hk:         { label: 港股 }
+  us:         { label: 美股 }
+  crypto:     { label: 加密资产 }
+  global:     { label: 全球/通用 }
+
+langs:
+  zh: { label: 中文 }
+  en: { label: 英文 }
+
+# 策略持有周期，顺序即策略地图横轴顺序（短 → 长）
+horizons:
+  tick:     { label: 毫秒-秒 }
+  intraday: { label: 日内 }
+  days:     { label: 数日 }
+  weeks:    { label: 数周 }
+  months:   { label: 数月+ }
+
+# 技能等级标尺（每个技能节点正文里有具体的等级描述）
+levels:
+  "0": { label: 未接触 }
+  "1": { label: 入门, desc: 知道概念，能照着教程做 }
+  "2": { label: 会用, desc: 能独立完成常规任务 }
+  "3": { label: 熟练, desc: 能处理非标准问题，知道坑在哪 }
+  "4": { label: 精通, desc: 能设计方案、教别人 }
+  "5": { label: 专家, desc: 行业一线水平 }

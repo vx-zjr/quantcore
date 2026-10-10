@@ -1,0 +1,49 @@
+{
+  "name": "quantcore",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "个人量化中心：知识、技能、行业、信息源、思维与路线图。内容即数据，AGENTS.md 驱动迭代。",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run content:check && tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b",
+    "content:check": "tsx scripts/check.ts",
+    "content:index": "tsx scripts/index.ts",
+    "content:new": "tsx scripts/new.ts",
+    "check": "npm run content:index && npm run content:check && npm run typecheck"
+  },
+  "dependencies": {
+    "d3-force": "^3.0.0",
+    "d3-selection": "^3.0.0",
+    "d3-shape": "^3.2.0",
+    "d3-zoom": "^3.0.0",
+    "katex": "^0.16.22",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.18.4",
+    "recharts": "^3.10.1",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/d3-force": "^3.0.10",
+    "@types/d3-selection": "^3.0.11",
+    "@types/d3-shape": "^3.1.7",
+    "@types/d3-zoom": "^3.0.8",
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.4",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  }
+}

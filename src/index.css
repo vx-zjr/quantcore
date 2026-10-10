@@ -1,0 +1,306 @@
+@import 'tailwindcss';
+
+/* 设计令牌。颜色取自文档化的数据可视化调色板（亮/暗各自选定，而非自动反转）。
+   新增颜色前先确认是否已有对应角色；分类色只用 k1..k8，状态色只表示状态。 */
+/* static：kind 分类色按 slot 在运行时拼接（var(--color-k${slot})），必须始终输出全部变量 */
+@theme static {
+  --font-sans: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  --color-page: #f9f9f7;
+  --color-surface: #fcfcfb;
+  --color-raised: #f2f1ed;
+  --color-ink: #0b0b0b;
+  --color-ink-2: #52514e;
+  --color-muted: #6f6d68;
+  --color-grid: #e1e0d9;
+  --color-axis: #c3c2b7;
+  --color-line: rgba(11, 11, 11, 0.1);
+  --color-accent: #2a78d6;
+  --color-accent-ink: #1c5cab;
+
+  /* 分类色（kind 的 slot 1..8） */
+  --color-k1: #2a78d6;
+  --color-k2: #eb6834;
+  --color-k3: #1baf7a;
+  --color-k4: #eda100;
+  --color-k5: #e87ba4;
+  --color-k6: #008300;
+  --color-k7: #6250d6;
+  --color-k8: #e34948;
+
+  /* 序数（进度）：done 深、doing 浅，todo 用轨道色 */
+  --color-prog-done: #1c5cab;
+  --color-prog-doing: #86b6ef;
+
+  /* 状态色（固定，不随主题；总是配图标+文字） */
+  --color-good: #0ca30c;
+  --color-good-ink: #006300;
+  --color-warning: #fab219;
+  --color-serious: #ec835a;
+  --color-critical: #d03b3b;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme='light'])) {
+      color-scheme: dark;
+      --color-page: #0d0d0d;
+      --color-surface: #1a1a19;
+      --color-raised: #242422;
+      --color-ink: #f0efec;
+      --color-ink-2: #c3c2b7;
+      --color-muted: #9a988f;
+      --color-grid: #2c2c2a;
+      --color-axis: #383835;
+      --color-line: rgba(255, 255, 255, 0.1);
+      --color-accent: #3987e5;
+      --color-accent-ink: #86b6ef;
+      --color-k1: #3987e5;
+      --color-k2: #d95926;
+      --color-k3: #199e70;
+      --color-k4: #c98500;
+      --color-k5: #d55181;
+      --color-k6: #008300;
+      --color-k7: #9085e9;
+      --color-k8: #e66767;
+      --color-prog-done: #6da7ec;
+      --color-prog-doing: #1c5cab;
+      --color-good-ink: #0ca30c;
+    }
+  }
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+    --color-page: #0d0d0d;
+    --color-surface: #1a1a19;
+    --color-raised: #242422;
+    --color-ink: #f0efec;
+    --color-ink-2: #c3c2b7;
+    --color-muted: #9a988f;
+    --color-grid: #2c2c2a;
+    --color-axis: #383835;
+    --color-line: rgba(255, 255, 255, 0.1);
+    --color-accent: #3987e5;
+    --color-accent-ink: #86b6ef;
+    --color-k1: #3987e5;
+    --color-k2: #d95926;
+    --color-k3: #199e70;
+    --color-k4: #c98500;
+    --color-k5: #d55181;
+    --color-k6: #008300;
+    --color-k7: #9085e9;
+    --color-k8: #e66767;
+    --color-prog-done: #6da7ec;
+    --color-prog-doing: #1c5cab;
+    --color-good-ink: #0ca30c;
+  }
+
+  html,
+  body {
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    margin: 0;
+  }
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 30%, transparent);
+  }
+}
+
+@layer components {
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: 12px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--color-line);
+    font-size: 12px;
+    line-height: 18px;
+    color: var(--color-ink-2);
+    white-space: nowrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .btn:hover:not(:disabled) {
+    background: var(--color-raised);
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    border-color: transparent;
+    color: #fff;
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: var(--color-accent-ink);
+  }
+  .input {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--color-line);
+    background: var(--color-page);
+    color: var(--color-ink);
+    font-size: 13px;
+    outline: none;
+  }
+  .input:focus {
+    border-color: var(--color-accent);
+  }
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-ink-2);
+    letter-spacing: 0.02em;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Markdown 正文 */
+.prose-qc {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+}
+.prose-qc h1,
+.prose-qc h2,
+.prose-qc h3 {
+  font-weight: 650;
+  line-height: 1.35;
+  margin: 1.6em 0 0.6em;
+}
+.prose-qc h2 {
+  font-size: 18px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--color-line);
+}
+.prose-qc h3 {
+  font-size: 16px;
+}
+.prose-qc > :first-child {
+  margin-top: 0;
+}
+.prose-qc p,
+.prose-qc ul,
+.prose-qc ol,
+.prose-qc table,
+.prose-qc blockquote,
+.prose-qc pre {
+  margin: 0.7em 0;
+}
+.prose-qc ul {
+  list-style: disc;
+  padding-left: 1.4em;
+}
+.prose-qc ol {
+  list-style: decimal;
+  padding-left: 1.4em;
+}
+.prose-qc li {
+  margin: 0.25em 0;
+}
+.prose-qc li > ul,
+.prose-qc li > ol {
+  margin: 0.2em 0;
+}
+.prose-qc ul.contains-task-list {
+  list-style: none;
+  padding-left: 0.2em;
+}
+.prose-qc input[type='checkbox'] {
+  margin-right: 6px;
+  accent-color: var(--color-accent);
+}
+.prose-qc a {
+  color: var(--color-accent-ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 40%, transparent);
+  text-underline-offset: 3px;
+}
+.prose-qc a.wiki {
+  text-decoration-style: dotted;
+}
+.prose-qc a.wiki.broken {
+  color: var(--color-critical);
+}
+.prose-qc code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 1px 5px;
+  border-radius: 5px;
+  background: var(--color-raised);
+}
+.prose-qc pre {
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: var(--color-raised);
+  overflow-x: auto;
+}
+.prose-qc pre code {
+  padding: 0;
+  background: none;
+}
+.prose-qc blockquote {
+  padding: 4px 14px;
+  border-left: 3px solid var(--color-accent);
+  color: var(--color-ink-2);
+  background: color-mix(in srgb, var(--color-accent) 6%, transparent);
+  border-radius: 0 8px 8px 0;
+}
+.prose-qc table {
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.prose-qc th,
+.prose-qc td {
+  border: 1px solid var(--color-line);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.prose-qc th {
+  background: var(--color-raised);
+  font-weight: 600;
+}
+.prose-qc strong {
+  font-weight: 650;
+}
+.prose-qc hr {
+  border: 0;
+  border-top: 1px solid var(--color-line);
+  margin: 1.5em 0;
+}
+.prose-qc .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}
