@@ -60,7 +60,7 @@ src/                      ← 前端渲染器（不放内容）
 | `kind` | ✅ | `knowledge` `skill` `industry` `source` `mindset` `roadmap` `journal` `inbox`，必须与所在目录一致 |
 | `summary` | ✅ | **一句话**（≤200 字），会出现在 INDEX.md、列表、搜索与悬停提示里 |
 | `domains` | 视 kind | taxonomy.domains 中的键；**第一个是主领域**（用于分组与技能雷达） |
-| `tags` | | 自由标签（中英文均可） |
+| `tags` | | 自由标签（中英文均可）。`起点` 标签表示零基础入门节点，总览页会优先推荐 |
 | `related` | | 相关节点 id 列表 |
 | `prereqs` | | 前置节点 id 列表（学这个之前应先掌握的） |
 | `status` | 视 kind | `todo` / `doing` / `done` —— **用户的进度**，AI 不要擅自改为 done |

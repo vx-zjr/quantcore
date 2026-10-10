@@ -3,7 +3,22 @@ import { InboxCapture } from '../components/InboxCapture';
 import { KindDot, NodeLink, PageHeader, ProgressBar, Section, Stat, StatusControl } from '../components/ui';
 import { useContent } from '../content/store';
 import { KINDS } from '../content/types';
-import { nextSteps, nodeHref, profileCompleteness, skillGap, statusCounts } from '../content/utils';
+import { label, nextSteps, nodeHref, profileCompleteness, skillGap, statusCounts } from '../content/utils';
+
+const PROFILE_LABELS: Record<string, string> = {
+  name: '称呼',
+  goal: '目标',
+  markets: '市场',
+  capital: '资金',
+  hours_per_week: '每周时间',
+  background: '背景',
+  risk_tolerance: '风险承受',
+  preferred_horizon: '交易频率',
+  accounts: '账户',
+  constraints: '约束',
+};
+
+const filled = (v: unknown) => v !== null && v !== undefined && v !== '' && !(Array.isArray(v) && v.length === 0);
 
 export function Dashboard() {
   const { data, byKind, byId, nodes } = useContent();
@@ -148,29 +163,29 @@ export function Dashboard() {
             title="我的画像"
             right={<span className="text-xs text-muted tabular">已填 {pc.filled}/{pc.total}</span>}
           >
-            {pc.filled < pc.total ? (
-              <div className="space-y-2 text-sm">
-                <p className="text-ink-2">
-                  画像决定了哪些策略、工具和路径适合你。编辑 <code className="rounded bg-raised px-1">content/_meta/profile.yaml</code>
-                  ，或把下面的问题交给 AI 与你逐一确认：
-                </p>
+            <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-sm">
+              {Object.entries(profile)
+                .filter(([key, v]) => !['open_questions', 'updated'].includes(key) && filled(v))
+                .map(([key, v]) => (
+                  <div key={key} className="contents">
+                    <dt className="text-ink-2">{PROFILE_LABELS[key] ?? key}</dt>
+                    <dd className="min-w-0">
+                      {Array.isArray(v)
+                        ? v.map((x) => (key === 'markets' ? label(t.markets, String(x)) : String(x))).join('、')
+                        : String(v)}
+                    </dd>
+                  </div>
+                ))}
+            </dl>
+            {openQs.length > 0 && (
+              <div className="mt-3 border-t border-line pt-3 text-sm">
+                <p className="mb-1 text-xs text-ink-2">待确认（交给 AI 与你逐一确认，或直接编辑 profile.yaml）：</p>
                 <ul className="list-disc space-y-1 pl-5 text-ink-2">
                   {openQs.map((q) => (
                     <li key={q}>{q}</li>
                   ))}
                 </ul>
               </div>
-            ) : (
-              <dl className="grid grid-cols-3 gap-2 text-sm">
-                {Object.entries(profile)
-                  .filter(([key]) => key !== 'open_questions')
-                  .map(([key, v]) => (
-                    <div key={key} className="contents">
-                      <dt className="text-ink-2">{key}</dt>
-                      <dd className="col-span-2">{Array.isArray(v) ? v.join('、') : String(v)}</dd>
-                    </div>
-                  ))}
-              </dl>
             )}
           </Section>
 

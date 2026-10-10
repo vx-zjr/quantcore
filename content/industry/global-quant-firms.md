@@ -14,7 +14,7 @@ updated: 2026-10-10
 review: 2027-04-10
 ---
 
-> ⚠️ 截至 2026 年中的概括性描述，不含规模排名等易变数字。
+> 截至 **2026-10** 部分联网核实（Jane Street 案进展，来源见文末）；其余为概括性描述，不含规模排名等易变数字。
 
 | 机构 | 类型 | 值得了解的点 |
 |---|---|---|
@@ -22,7 +22,7 @@ review: 2027-04-10
 | Two Sigma | 量化对冲基金 | 强调数据科学与技术平台 |
 | D.E. Shaw | 量化/多策略 | 最早的计算机化交易公司之一 |
 | Citadel / Citadel Securities | 多策略对冲基金 / 做市商 | 两家独立实体；后者是全球最大的做市商之一 |
-| Jane Street | 自营/做市 | ETF、债券、期权做市；以 OCaml 技术栈闻名；2025 年在印度遭遇监管处罚，是「监管风险」的典型案例（需核实最新进展） |
+| Jane Street | 自营/做市 | ETF、债券、期权做市；以 OCaml 技术栈闻名。2025-07 印度 SEBI 指控其操纵 Bank Nifty 指数，临时禁止交易并扣押约 484 亿卢比；其缴款后恢复市场准入但未恢复在印交易，并向证券上诉法庭（SAT）上诉，截至 2026-10 案件仍在审理——「监管风险」的典型案例 |
 | Jump Trading、Hudson River Trading、Tower Research | 高频/自营 | 低延迟交易的代表 |
 | Optiver、IMC、Susquehanna (SIG) | 做市（期权见长） | 期权做市与交易员培养体系 |
 | Virtu Financial | 做市商（上市公司） | 公开财报可了解做市业务的经济学 |
@@ -41,3 +41,7 @@ review: 2027-04-10
 
 - 不要用「Medallion 的收益」来校准自己的预期（参见 [[base-rates]]）。
 - 不要试图复制机构的高频或大规模统计套利（参见 [[small-player-edge]]）。
+
+## 来源（2026-10 核实）
+
+- Jane Street 与 SEBI：[Business Today 2026-02-25](https://www.businesstoday.in/amp/markets/story/jane-street-vs-sebi-sat-adjourns-hearing-in-market-manipulation-case-517925-2026-02-25)、[Business Today 2025-09-03](https://www.businesstoday.in/amp/markets/stocks/story/jane-street-moves-sat-files-case-against-sebi-492351-2025-09-03)

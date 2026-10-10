@@ -2,19 +2,19 @@
 id: cn-futures-options
 title: 国内期货与期权市场
 kind: knowledge
-summary: 六家期货交易所、商品/金融期货、ETF 与股指期权的基本制度：T+0、双向交易、保证金杠杆、夜盘、主力换月与投资者门槛。
+summary: 六家期货交易所、商品/金融期货、ETF 与股指期权的基本制度：T+0、双向交易、保证金杠杆、夜盘、主力换月、投资者门槛，以及 2025 年起的期货程序化交易报告制度与品种快速扩容。
 domains: [market-structure, regulation]
 tags: [期货, 期权, 股指期货, CTA, 保证金]
 status: todo
 importance: 3
 confidence: medium
-related: [cn-a-share-rules, strat-trend-following, options-basics, strat-arbitrage, strat-options-volatility, data-cleaning]
+related: [cn-a-share-rules, strat-trend-following, options-basics, strat-arbitrage, strat-options-volatility, data-cleaning, cn-programmatic-trading-rules]
 created: 2026-10-10
 updated: 2026-10-10
 review: 2027-04-10
 ---
 
-> ⚠️ 截至 2026 年中的整理。保证金比例、手续费、品种和门槛会调整，以交易所与期货公司现行规定为准。
+> 截至 **2026-10** 联网核实了品种与监管动态（来源见文末）。保证金比例、手续费、门槛会调整，以交易所与期货公司现行规定为准。
 
 ## 交易所与品种
 
@@ -24,7 +24,9 @@ review: 2027-04-10
 | 大连商品交易所（DCE） | 农产品、铁矿石、焦煤焦炭、化工 |
 | 郑州商品交易所（CZCE） | 农产品、PTA、甲醇、纯碱、玻璃等 |
 | 中国金融期货交易所（CFFEX） | 股指期货 IF/IH/IC/IM、国债期货 TS/TF/T/TL、股指期权 |
-| 广州期货交易所（GFEX） | 工业硅、碳酸锂等新能源相关品种 |
+| 广州期货交易所（GFEX） | 工业硅、碳酸锂、多晶硅，2025-11 起铂、钯期货与期权 |
+
+**品种在快速扩容**：2025 年期货期权新增 18 个品种（如铸造铝合金、纯苯、丙烯、铂、钯等），2026 年焦煤期权（1 月）、热轧卷板/不锈钢/低硫燃料油期权（9 月）相继上市；证监会还在推动算力、电力期货等研发。回测时注意每个品种的**上市日期**，不要用后来才有的品种回测过去。
 
 ## 核心制度
 
@@ -35,6 +37,10 @@ review: 2027-04-10
 - **合约到期与换月**：每个合约有到期日，成交量集中在「主力合约」。回测需要构造**连续合约**，并正确处理换月价差（参见 [[data-cleaning]]）。
 - **涨跌停板**：各品种不同，极端行情下可能连续涨跌停无法平仓。
 - **平今手续费**：部分品种（尤其股指期货）平今仓手续费明显高于开仓，日内策略成本高。
+
+## 程序化交易（2025-10-09 起）
+
+《期货市场程序化交易管理规定（试行）》施行：程序化交易需先报告、经确认后开展，高频交易从严管理，存量程序化交易者的报告过渡期至 2026-04-08。详见 [[cn-programmatic-trading-rules]]。
 
 ## 门槛（个人）
 
@@ -54,3 +60,8 @@ review: 2027-04-10
 - 期货是个人做**系统化趋势跟踪**的最佳场所之一：多品种分散、可做空、成本低、T+0（参见 [[strat-trend-following]]）。
 - 但最低交易单位（一手）对应的名义价值较大，资金不足时难以充分分散——这是小资金做 CTA 的主要约束。
 - 股指期货的**基差**（期货相对现货的升贴水）是对冲股票多头的隐性成本，中证 500/1000 期货曾长期深度贴水。
+
+## 来源（2026-10 核实）
+
+- 2025 年新增 18 个品种、2026 年新品种：[中证网 2026-01-10](https://cs.com.cn/zzqh2020/202601/t20260110_6532622.html)、[同花顺 2025-08-05](https://news.10jqka.com.cn/20250805/c670130423.shtml)、[上海证券报 2026-04-18](https://paper.cnstock.com/html/2026-04/18/content_2201730.htm)
+- 期货程序化交易规定：[证监会](https://www.csrc.gov.cn/csrc/c100028/c7564353/content.shtml)、[君合律师事务所解读](https://junhe.com/legal-updates/2715)

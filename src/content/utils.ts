@@ -64,7 +64,7 @@ export function buildEdges(nodes: QNode[]) {
   return edges;
 }
 
-/** 推荐下一步：重要且前置已完成的未开始项 */
+/** 推荐下一步：进行中的优先，其次是带「起点」标签的入门节点，再按重要度；只推荐前置已满足的项 */
 export function nextSteps(data: ContentData, byId: Map<string, QNode>, limit = 6): QNode[] {
   const ready = (n: QNode) =>
     n.prereqs.every((p) => {
@@ -73,7 +73,12 @@ export function nextSteps(data: ContentData, byId: Map<string, QNode>, limit = 6
     });
   return data.nodes
     .filter((n) => (n.kind === 'knowledge' || n.kind === 'mindset') && n.status !== 'done' && ready(n))
-    .sort((a, b) => (b.status === 'doing' ? 1 : 0) - (a.status === 'doing' ? 1 : 0) || b.importance - a.importance)
+    .sort(
+      (a, b) =>
+        (b.status === 'doing' ? 1 : 0) - (a.status === 'doing' ? 1 : 0) ||
+        (b.tags.includes('起点') ? 1 : 0) - (a.tags.includes('起点') ? 1 : 0) ||
+        b.importance - a.importance,
+    )
     .slice(0, limit);
 }
 
